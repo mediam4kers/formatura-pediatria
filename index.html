@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Formatura da Pediatria · Turma 2024-2027</title>
-  <meta name="description" content="Convite para a formatura da Residência Médica em Pediatria: data, local e programação.">
-  <meta name="theme-color" content="#070605">
+  <meta name="description" content="Convite para a festa de formatura da Residência Médica em Pediatria: data e local.">
+  <meta name="theme-color" content="#08130E">
   <meta name="color-scheme" content="dark">
 
   <!-- Prévia do link no WhatsApp. Depois de publicar, troque "assets/og.png"
@@ -15,7 +15,7 @@
   <meta property="og:url" content="https://mediam4kers.github.io/formatura-pediatria/">
   <meta property="og:locale" content="pt_BR">
   <meta property="og:title" content="Formatura da Pediatria · Turma 2024-2027">
-  <meta property="og:description" content="Veja a data, o local e a programação da festa.">
+  <meta property="og:description" content="Veja a data e o local da festa.">
   <meta property="og:image" content="https://mediam4kers.github.io/formatura-pediatria/assets/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -43,64 +43,67 @@
 <body>
   <a class="pular" href="#conteudo">Pular para o conteúdo</a>
 
-  <!-- fundo fixo: luzes douradas atrás dos painéis de vidro -->
+  <!-- fundo fixo: a noite no jardim, com as luzes atrás dos painéis de vidro -->
   <div class="palco" aria-hidden="true">
     <div class="palco__foto" data-capa-foto></div>
     <i class="palco__orbe palco__orbe--1"></i>
     <i class="palco__orbe palco__orbe--2"></i>
     <i class="palco__orbe palco__orbe--3"></i>
+    <i class="palco__luz" data-luz-cursor></i>
     <canvas class="palco__brilho" data-brilho></canvas>
   </div>
 
-  <!-- tela de abertura -->
+  <!-- tela de abertura: a porta de cobogó -->
   <div class="abertura" data-abertura>
     <div class="abertura__porta abertura__porta--esq" aria-hidden="true"></div>
     <div class="abertura__porta abertura__porta--dir" aria-hidden="true"></div>
+    <div class="abertura__verga" aria-hidden="true"><span data-campo="numeroLocal"></span></div>
     <div class="abertura__centro">
-      <p class="abertura__turma" data-campo="aberturaTurma"></p>
       <button class="abertura__botao" type="button" data-abrir>
         <svg class="selo selo--abertura" data-selo viewBox="0 0 200 200" aria-hidden="true"></svg>
         <span class="abertura__rotulo">Abrir convite</span>
       </button>
     </div>
   </div>
+  <canvas class="confete" data-confete aria-hidden="true"></canvas>
 
   <nav class="barra vidro" aria-label="Seções do site">
     <a class="marca" href="#topo" data-campo="marca">Pediatria</a>
     <ul class="barra__links">
-      <li><a href="#programacao">Programação</a></li>
       <li><a href="#turma">A turma</a></li>
+      <li><a href="#historia">História</a></li>
       <li><a href="#homenagens">Homenagens</a></li>
       <li><a href="#local">Local</a></li>
       <li><a href="#duvidas">Dúvidas</a></li>
     </ul>
     <a class="botao botao--pequeno" href="#local">Como chegar</a>
+    <i class="barra__progresso" data-progresso aria-hidden="true"></i>
   </nav>
 
   <header class="capa" id="topo">
-    <svg class="canto canto--se" viewBox="0 0 100 100" aria-hidden="true"><use href="#canto"/></svg>
-    <svg class="canto canto--sd" viewBox="0 0 100 100" aria-hidden="true"><use href="#canto"/></svg>
-    <svg class="canto canto--ie" viewBox="0 0 100 100" aria-hidden="true"><use href="#canto"/></svg>
-    <svg class="canto canto--id" viewBox="0 0 100 100" aria-hidden="true"><use href="#canto"/></svg>
+    <svg class="folhagem folhagem--se" data-folhagem="pendente" aria-hidden="true"></svg>
+    <svg class="folhagem folhagem--sd" data-folhagem="pendente" aria-hidden="true"></svg>
+    <svg class="folhagem folhagem--ie" data-folhagem="ascendente" aria-hidden="true"></svg>
+    <svg class="folhagem folhagem--id" data-folhagem="ascendente" aria-hidden="true"></svg>
+    <svg class="luzes" data-luzes aria-hidden="true"></svg>
 
     <div class="capa__centro">
       <div class="medalha" aria-hidden="true">
-        <i class="medalha__raios"></i>
         <svg class="selo" data-selo viewBox="0 0 200 200"></svg>
       </div>
 
       <p class="capa__convida">
-        Os residentes da turma <span data-campo="turma"></span>
+        As residentes da turma <span data-campo="turma"></span>
         <span class="capa__convida-linha">do <span data-campo="instituicao"></span> convidam para a sua</span>
       </p>
 
       <h1 class="lockup">
-        <span class="lockup__caps">Formatura</span>
-        <span class="lockup__script"><span class="ouro" data-brilha>em <span data-campo="especialidade">Pediatria</span></span></span>
+        <span class="lockup__caps" data-letras>Formatura</span>
+        <span class="lockup__script"><span class="foil" data-brilha>em <span data-campo="especialidade">Pediatria</span></span></span>
       </h1>
 
       <p class="sr" data-campo="quandoLeitor"></p>
-      <div class="cartao-evento vidro" data-luz>
+      <div class="cartao-evento vidro" data-luz data-inclina="2.5">
         <div class="cartao-evento__linha">
           <div class="quando" aria-hidden="true">
             <p class="quando__lado" data-campo="diaSemana"></p>
@@ -113,7 +116,7 @@
           <div class="cartao-evento__local">
             <p class="rotulo">Local</p>
             <p class="cartao-evento__nome" data-campo="localNome"></p>
-            <p class="cartao-evento__cidade" data-campo="localCidade"></p>
+            <p class="cartao-evento__cidade" data-campo="localBairro"></p>
           </div>
           <div class="cartao-evento__acoes">
             <details class="agenda">
@@ -137,31 +140,23 @@
     </div>
   </header>
 
+  <!-- faixa com os nomes da turma correndo -->
+  <div class="faixa" aria-hidden="true"><div class="faixa__trilho" data-lista="faixa"></div></div>
+
   <main id="conteudo">
     <section class="secao convite" id="convite" aria-labelledby="convite-titulo">
       <div class="miolo miolo--estreito" data-revela>
-        <svg class="floreio" viewBox="0 0 240 24" aria-hidden="true"><use href="#floreio"/></svg>
-        <h2 id="convite-titulo" data-campo="conviteTitulo"></h2>
+        <svg class="ramo" data-ramo aria-hidden="true"></svg>
+        <h2 id="convite-titulo" data-campo="conviteTitulo" data-palavras></h2>
         <div class="convite__texto" data-lista="convite"></div>
         <p class="convite__assinatura" data-campo="conviteAssinatura"></p>
-      </div>
-    </section>
-
-    <section class="secao" id="programacao" aria-labelledby="programacao-titulo">
-      <div class="miolo miolo--medio">
-        <header class="cabeca" data-revela>
-          <svg class="floreio" viewBox="0 0 240 24" aria-hidden="true"><use href="#floreio"/></svg>
-          <h2 id="programacao-titulo">A noite</h2>
-          <p class="cabeca__sub" data-campo="dataCompleta"></p>
-        </header>
-        <ol class="linha-tempo" data-lista="programacao"></ol>
       </div>
     </section>
 
     <section class="secao" id="turma" aria-labelledby="turma-titulo">
       <div class="miolo">
         <header class="cabeca" data-revela>
-          <svg class="floreio" viewBox="0 0 240 24" aria-hidden="true"><use href="#floreio"/></svg>
+          <svg class="ramo" data-ramo aria-hidden="true"></svg>
           <h2 id="turma-titulo">A turma</h2>
           <p class="cabeca__sub" data-campo="turmaSub"></p>
         </header>
@@ -172,7 +167,7 @@
     <section class="secao" id="historia" aria-labelledby="historia-titulo">
       <div class="miolo">
         <header class="cabeca" data-revela>
-          <svg class="floreio" viewBox="0 0 240 24" aria-hidden="true"><use href="#floreio"/></svg>
+          <svg class="ramo" data-ramo aria-hidden="true"></svg>
           <h2 id="historia-titulo" data-campo="historiaTitulo">De R1 a R3</h2>
           <p class="cabeca__sub" data-campo="historiaSub"></p>
         </header>
@@ -184,12 +179,8 @@
     <section class="secao" id="homenagens" aria-labelledby="homenagens-titulo">
       <div class="miolo">
         <div class="painel vidro" data-luz data-revela>
-          <svg class="canto canto--se" viewBox="0 0 100 100" aria-hidden="true"><use href="#canto"/></svg>
-          <svg class="canto canto--sd" viewBox="0 0 100 100" aria-hidden="true"><use href="#canto"/></svg>
-          <svg class="canto canto--ie" viewBox="0 0 100 100" aria-hidden="true"><use href="#canto"/></svg>
-          <svg class="canto canto--id" viewBox="0 0 100 100" aria-hidden="true"><use href="#canto"/></svg>
           <header class="cabeca">
-            <svg class="floreio" viewBox="0 0 240 24" aria-hidden="true"><use href="#floreio"/></svg>
+            <svg class="ramo" data-ramo aria-hidden="true"></svg>
             <h2 id="homenagens-titulo">Homenagens</h2>
             <p class="cabeca__sub">A quem nos ensinou a cuidar</p>
           </header>
@@ -201,7 +192,7 @@
     <section class="secao" id="agradecimentos" aria-labelledby="agradecimentos-titulo">
       <div class="miolo miolo--largo-medio">
         <header class="cabeca" data-revela>
-          <svg class="floreio" viewBox="0 0 240 24" aria-hidden="true"><use href="#floreio"/></svg>
+          <svg class="ramo" data-ramo aria-hidden="true"></svg>
           <h2 id="agradecimentos-titulo">Agradecimentos</h2>
         </header>
         <ul class="agradecimentos" data-lista="agradecimentos"></ul>
@@ -209,9 +200,9 @@
     </section>
 
     <section class="secao epigrafe" id="epigrafe" aria-label="Juramento">
-      <i class="epigrafe__raios" aria-hidden="true"></i>
-      <figure class="miolo miolo--medio" data-revela>
-        <blockquote class="epigrafe__texto" data-campo="epigrafeTexto"></blockquote>
+      <i class="epigrafe__cobogo" aria-hidden="true"></i>
+      <figure class="miolo miolo--medio">
+        <blockquote class="epigrafe__texto" data-campo="epigrafeTexto" data-palavras></blockquote>
         <figcaption class="epigrafe__fonte" data-campo="epigrafeFonte"></figcaption>
       </figure>
     </section>
@@ -219,16 +210,17 @@
     <section class="secao" id="local" aria-labelledby="local-titulo">
       <div class="miolo">
         <header class="cabeca" data-revela>
-          <svg class="floreio" viewBox="0 0 240 24" aria-hidden="true"><use href="#floreio"/></svg>
+          <svg class="ramo" data-ramo aria-hidden="true"></svg>
           <h2 id="local-titulo">Onde vai ser</h2>
-          <p class="cabeca__sub" data-campo="localCidade"></p>
+          <p class="cabeca__sub" data-campo="localBairro"></p>
         </header>
         <div class="local__grade" data-revela>
           <div class="local__info">
             <p class="local__nome" data-campo="localNome"></p>
             <p class="local__endereco" data-campo="localEndereco"></p>
+            <p class="local__sobre" data-campo="localSobre"></p>
             <div class="local__acoes">
-              <a class="botao botao--vidro" data-link="maps" target="_blank" rel="noopener">Abrir no Google Maps</a>
+              <a class="botao" data-link="maps" target="_blank" rel="noopener">Abrir no Google Maps</a>
               <a class="botao botao--vidro" data-link="waze" target="_blank" rel="noopener">Abrir no Waze</a>
             </div>
             <dl class="detalhes">
@@ -247,48 +239,29 @@
     <section class="secao" id="duvidas" aria-labelledby="duvidas-titulo">
       <div class="miolo miolo--medio">
         <header class="cabeca" data-revela>
-          <svg class="floreio" viewBox="0 0 240 24" aria-hidden="true"><use href="#floreio"/></svg>
+          <svg class="ramo" data-ramo aria-hidden="true"></svg>
           <h2 id="duvidas-titulo">Bom saber</h2>
           <p class="cabeca__sub">Antes de sair de casa</p>
         </header>
         <div class="duvidas" data-lista="duvidas"></div>
       </div>
     </section>
-
   </main>
 
   <footer class="rodape">
+    <svg class="folhagem folhagem--ie" data-folhagem="ascendente" aria-hidden="true"></svg>
+    <svg class="folhagem folhagem--id" data-folhagem="ascendente" aria-hidden="true"></svg>
+    <svg class="luzes" data-luzes aria-hidden="true"></svg>
     <div class="miolo rodape__miolo" data-revela>
       <div class="medalha medalha--rodape" aria-hidden="true">
-        <i class="medalha__raios"></i>
         <svg class="selo" data-selo viewBox="0 0 200 200"></svg>
       </div>
-      <p class="rodape__ate"><span class="ouro">Até lá</span></p>
+      <p class="rodape__ate"><span class="foil">Até lá</span></p>
       <p class="rodape__quando" data-campo="rodapeQuando"></p>
       <p class="rodape__turma" data-campo="rodapeTurma"></p>
     </div>
   </footer>
 
   <p class="aviso-exemplo" data-aviso hidden>Dados de exemplo. Para trocar, edite o arquivo <code>dados.js</code>.</p>
-
-  <!-- ornamentos reutilizados -->
-  <svg class="defs" width="0" height="0" aria-hidden="true" focusable="false">
-    <defs>
-      <symbol id="canto" viewBox="0 0 100 100">
-        <path d="M28 0A28 28 0 0 1 0 28M52 0A52 52 0 0 1 0 52M76 0A76 76 0 0 1 0 76" />
-        <path d="M27.050 7.250 73.410 19.670M24.250 14 65.820 38M19.800 19.800 53.740 53.740M14 24.250 38 65.820M7.250 27.050 19.670 73.410" />
-        <path d="M0 0h100M0 0v100" />
-        <path d="M64 58l6 6-6 6-6-6z" class="cheio" />
-        <path d="M88 0v8M0 88h8" />
-      </symbol>
-      <symbol id="floreio" viewBox="0 0 240 24">
-        <path d="M0 12h84M156 12h84" />
-        <path d="M92 12l8-8 8 8-8 8z" />
-        <path d="M132 12l8-8 8 8-8 8z" />
-        <path d="M112 12l8-8 8 8-8 8z" class="cheio" />
-        <path d="M70 7v10M170 7v10" />
-      </symbol>
-    </defs>
-  </svg>
 </body>
 </html>

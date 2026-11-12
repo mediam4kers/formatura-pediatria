@@ -2,7 +2,7 @@
    DADOS DA FORMATURA
    ------------------------------------------------------------------
    Este é o único arquivo que você precisa editar.
-   Já são reais: hospital, data, horário de início, local e a regra do ingresso.
+   Já são reais: hospital, data, horário, local, traje, nomes das residentes e a regra do ingresso.
    O que ainda é EXEMPLO está marcado com "EXEMPLO" no comentário.
 
    Dicas:
@@ -16,7 +16,7 @@ window.FORMATURA = {
   // Mostra um aviso "dados de exemplo" no canto da tela. Mude para false quando terminar.
   exemplo: true,
 
-  // Tela de abertura com o selo ("Abrir convite"). Mude para false para entrar direto no site.
+  // Tela de abertura: a porta de cobogó com o selo ("Abrir convite"). Mude para false para entrar direto no site.
   abertura: true,
 
   instituicao: "Hospital Infantil Cândido Fontoura",
@@ -42,31 +42,23 @@ window.FORMATURA = {
     titulo: "Depois de três anos de residência, chegou a hora de comemorar.",
     texto: [
       "Foram três anos de plantão que virava madrugada, de puericultura, de UTI neonatal e de muita mãe perguntando “doutora, ele está bem?”.",
-      "Agora a gente quer comemorar com quem esteve perto: a família, os amigos, os preceptores e todo mundo que segurou as pontas enquanto a gente estudava. Venha jantar e dançar com a gente.",
+      "Agora a gente quer comemorar com quem esteve perto: a família, os amigos, os preceptores e todo mundo que segurou as pontas enquanto a gente estudava. Venha dançar com a gente.",
     ],
     assinatura: "Com carinho, a turma",
   },
 
-  // EXEMPLO: só o início às 20h é real. Troque pelos horários de verdade.
-  programacao: [
-    { hora: "20:00", titulo: "Recepção", texto: "Chegada dos convidados." },
-    { hora: "20:30", titulo: "Cerimônia", texto: "Entrada da turma, juramento e entrega dos certificados." },
-    { hora: "21:30", titulo: "Jantar", texto: "" },
-    { hora: "23:00", titulo: "Festa", texto: "Pista aberta." },
-  ],
-
-  // São 8 residentes. Só o primeiro nome é real; troque os outros quando tiver.
-  // "proximoPasso" e "frase" são opcionais: apague a linha ou deixe "" para não aparecer.
+  // As 8 residentes, em ordem alfabética.
+  // EXEMPLO: "proximoPasso" e "frase" ainda são texto provisório. Apague a linha ou deixe "" para não aparecer.
   // "foto": coloque a imagem em assets/fotos/ e escreva o caminho, ex.: "assets/fotos/ana.jpg".
   formandos: [
+    { nome: "Ana Clara", proximoPasso: "Próximo passo", frase: "Uma frase dela aqui.", foto: "" },
     { nome: "Ana Luisa", proximoPasso: "Próximo passo", frase: "Uma frase dela aqui.", foto: "" },
-    { nome: "Fulano de Tal", proximoPasso: "Próximo passo", frase: "Uma frase dele aqui.", foto: "" },
-    { nome: "Ciclano de Tal", proximoPasso: "Próximo passo", frase: "Uma frase dele aqui.", foto: "" },
-    { nome: "Beltrano de Tal", proximoPasso: "Próximo passo", frase: "Uma frase dele aqui.", foto: "" },
-    { nome: "Fulana de Tal", proximoPasso: "Próximo passo", frase: "Uma frase dela aqui.", foto: "" },
-    { nome: "Ciclana de Tal", proximoPasso: "Próximo passo", frase: "Uma frase dela aqui.", foto: "" },
-    { nome: "Beltrana de Tal", proximoPasso: "Próximo passo", frase: "Uma frase dela aqui.", foto: "" },
-    { nome: "Sicrana de Tal", proximoPasso: "Próximo passo", frase: "Uma frase dela aqui.", foto: "" },
+    { nome: "Bruna", proximoPasso: "Próximo passo", frase: "Uma frase dela aqui.", foto: "" },
+    { nome: "Eduarda", proximoPasso: "Próximo passo", frase: "Uma frase dela aqui.", foto: "" },
+    { nome: "Elena", proximoPasso: "Próximo passo", frase: "Uma frase dela aqui.", foto: "" },
+    { nome: "Gabriela", proximoPasso: "Próximo passo", frase: "Uma frase dela aqui.", foto: "" },
+    { nome: "Karine", proximoPasso: "Próximo passo", frase: "Uma frase dela aqui.", foto: "" },
+    { nome: "Leticia", proximoPasso: "Próximo passo", frase: "Uma frase dela aqui.", foto: "" },
   ],
 
   // EXEMPLO. Um cartão por ano da residência.
@@ -93,7 +85,7 @@ window.FORMATURA = {
   agradecimentos: [
     { a: "Aos nossos pais", texto: "Vocês pagaram a conta de muita coisa, inclusive da nossa ausência nos almoços de domingo. Metade deste certificado é de vocês." },
     { a: "Aos preceptores", texto: "Vocês ensinaram à beira do leito e corrigiram prescrição às três da manhã. Confiaram na gente antes de a gente confiar." },
-    { a: "Aos pequenos pacientes e suas famílias", texto: "Obrigado por deixarem a gente aprender cuidando de vocês, muitas vezes no pior dia da família." },
+    { a: "Aos pequenos pacientes e suas famílias", texto: "Agradecemos por deixarem a gente aprender cuidando de vocês, muitas vezes no pior dia da família." },
     { a: "À enfermagem", texto: "Por cada veia difícil pega de primeira e por cada aviso dado a tempo." },
   ],
 
@@ -106,17 +98,21 @@ window.FORMATURA = {
   local: {
     nome: "Oca Tupiniquim",
     endereco: "Rua Fradique Coutinho, 1379 · Vila Madalena · CEP 05416-011",
+    bairro: "Vila Madalena",
     cidade: "São Paulo/SP",
+    // Número da casa, que aparece na marquise da tela de abertura.
+    numero: "1379",
+    // Um parágrafo sobre o lugar (opcional).
+    sobre: "A Oca Tupiniquim é uma casa de eventos na Vila Madalena, aberta em 2007. Tem salão, mezanino, pista de dança, bar e um quintal coberto cheio de plantas, com uma mangueira grande e palmeiras logo na entrada.",
     // Texto usado para buscar no mapa (pode ser o nome do lugar + cidade)
     busca: "Oca Tupiniquim, Rua Fradique Coutinho, 1379, Vila Madalena, São Paulo, SP",
-    traje: "Black tie", // EXEMPLO: confirmar o traje
+    traje: "Social (passeio completo)",
   },
 
   duvidas: [
     { pergunta: "Posso levar acompanhante?", resposta: "Não. A entrada é só com ingresso." },
-    { pergunta: "A que horas começa?", resposta: "Às 20h." },
+    { pergunta: "A que horas começa?", resposta: "A festa começa às 20h. Não há cerimônia antes." },
     { pergunta: "Onde é?", resposta: "Na Oca Tupiniquim, Rua Fradique Coutinho, 1379, Vila Madalena." },
-    // EXEMPLO: confirmar o traje
-    { pergunta: "Qual é o traje?", resposta: "Black tie: vestido longo ou smoking. Terno escuro com gravata também vale." },
+    { pergunta: "Qual é o traje?", resposta: "Social, também chamado de passeio completo: terno e gravata para os homens, vestido ou conjunto elegante para as mulheres." },
   ],
 };
