@@ -19,6 +19,12 @@ window.FORMATURA = {
   // Tela de abertura: a porta de cobogó com o selo ("Abrir convite"). Mude para false para entrar direto no site.
   abertura: true,
 
+  // O site tem três visuais: "1" Jardim à noite, "2" Papel claro, "3" Laranja cobogó.
+  // Com escolherVersao: true aparece um botão "Versão" na barra de baixo para alternar e comparar.
+  // Quando a turma decidir, escreva o número em "versao" e mude escolherVersao para false.
+  versao: "1",
+  escolherVersao: true,
+
   instituicao: "Hospital Infantil Cândido Fontoura",
   programa: "Residência Médica em Pediatria",
   especialidade: "Pediatria",
@@ -102,12 +108,21 @@ window.FORMATURA = {
     cidade: "São Paulo/SP",
     // Número da casa, que aparece na marquise da tela de abertura.
     numero: "1379",
+    // Ambientes da casa, que aparecem como etiquetas (opcional).
+    ambientes: ["Salão principal", "Mezanino", "Pista de dança", "Bar", "Quintal com jardim"],
     // Um parágrafo sobre o lugar (opcional).
     sobre: "A Oca Tupiniquim é uma casa de eventos na Vila Madalena, aberta em 2007. Tem salão, mezanino, pista de dança, bar e um quintal coberto cheio de plantas, com uma mangueira grande e palmeiras logo na entrada.",
     // Texto usado para buscar no mapa (pode ser o nome do lugar + cidade)
     busca: "Oca Tupiniquim, Rua Fradique Coutinho, 1379, Vila Madalena, São Paulo, SP",
     traje: "Social (passeio completo)",
   },
+
+  // Três avisos em destaque, acima das perguntas. Ícones disponíveis: "relogio", "traje", "ingresso", "local".
+  destaques: [
+    { icone: "relogio", titulo: "20h", texto: "Começa a festa" },
+    { icone: "traje", titulo: "Social", texto: "Passeio completo" },
+    { icone: "ingresso", titulo: "Com ingresso", texto: "Sem acompanhante" },
+  ],
 
   duvidas: [
     { pergunta: "Posso levar acompanhante?", resposta: "Não. A entrada é só com ingresso." },
