@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#0A0A0B"/>
+  <rect x="5.500" y="5.500" width="53" height="53" rx="9.500" fill="none" stroke="#C9AB6E" stroke-opacity=".7"/>
+  <text x="32" y="34" dy="0.34em" text-anchor="middle" font-family="'Bodoni Moda', 'Bodoni 72', Didot, 'Times New Roman', serif" font-style="italic" font-size="38" fill="#E8D5A8">F</text>
+</svg>
