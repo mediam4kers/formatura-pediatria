@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Formatura da Pediatria · Turma 2024-2027</title>
-  <meta name="description" content="Convite para a formatura da Residência Médica em Pediatria: data, local, programação e confirmação de presença.">
+  <meta name="description" content="Convite para a formatura da Residência Médica em Pediatria: data, local e programação.">
   <meta name="theme-color" content="#070605">
   <meta name="color-scheme" content="dark">
 
@@ -15,7 +15,7 @@
   <meta property="og:url" content="https://mediam4kers.github.io/formatura-pediatria/">
   <meta property="og:locale" content="pt_BR">
   <meta property="og:title" content="Formatura da Pediatria · Turma 2024-2027">
-  <meta property="og:description" content="Você está na nossa lista. Veja data, local e confirme sua presença.">
+  <meta property="og:description" content="Veja a data, o local e a programação da festa.">
   <meta property="og:image" content="https://mediam4kers.github.io/formatura-pediatria/assets/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -31,8 +31,8 @@
       var raiz = document.documentElement;
       // animações só para quem aceita movimento
       if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) raiz.classList.add("anima");
-      // tela de abertura: uma vez por visita
-      try { if (!sessionStorage.getItem("convite-aberto")) raiz.classList.add("com-abertura"); } catch (e) { raiz.classList.add("com-abertura"); }
+      // tela de abertura: aparece toda vez que a página carrega
+      raiz.classList.add("com-abertura");
       // se o script principal falhar, nada fica escondido
       setTimeout(function () { raiz.classList.add("mostra-tudo"); }, 6000);
     })();
@@ -74,7 +74,7 @@
       <li><a href="#local">Local</a></li>
       <li><a href="#duvidas">Dúvidas</a></li>
     </ul>
-    <a class="botao botao--pequeno" href="#confirmar">Confirmar<span class="so-largo">&nbsp;presença</span></a>
+    <a class="botao botao--pequeno" href="#local">Como chegar</a>
   </nav>
 
   <header class="capa" id="topo">
@@ -116,14 +116,14 @@
             <p class="cartao-evento__cidade" data-campo="localCidade"></p>
           </div>
           <div class="cartao-evento__acoes">
-            <a class="botao" href="#confirmar">Confirmar presença</a>
             <details class="agenda">
-              <summary class="botao botao--vidro">Salvar na agenda</summary>
+              <summary class="botao">Salvar na agenda</summary>
               <div class="agenda__menu vidro">
                 <a data-agenda="google" target="_blank" rel="noopener">Google Agenda</a>
                 <a data-agenda="ics" download="formatura-pediatria.ics">iPhone, Outlook e outros</a>
               </div>
             </details>
+            <a class="botao botao--vidro" href="#local">Como chegar</a>
           </div>
         </div>
         <div class="contagem" data-contagem>
@@ -255,77 +255,6 @@
       </div>
     </section>
 
-    <section class="secao confirmar" id="confirmar" aria-labelledby="confirmar-titulo">
-      <div class="miolo miolo--medio">
-        <header class="cabeca" data-revela>
-          <svg class="floreio" viewBox="0 0 240 24" aria-hidden="true"><use href="#floreio"/></svg>
-          <h2 id="confirmar-titulo">Confirme sua presença</h2>
-          <p class="cabeca__sub" data-campo="prazo"></p>
-        </header>
-
-        <form class="formulario vidro" data-form data-luz data-revela novalidate>
-          <div class="campo">
-            <label for="f-nome">Seu nome</label>
-            <input id="f-nome" name="nome" type="text" autocomplete="name" required aria-describedby="f-nome-erro" placeholder="Nome e sobrenome">
-            <p class="campo__erro" id="f-nome-erro" hidden>Faltou o seu nome.</p>
-          </div>
-
-          <fieldset class="campo">
-            <legend>Você vem?</legend>
-            <div class="escolhas">
-              <label class="escolha"><input type="radio" name="vem" value="sim" checked><span>Sim, estarei lá</span></label>
-              <label class="escolha"><input type="radio" name="vem" value="nao"><span>Não vou conseguir</span></label>
-            </div>
-          </fieldset>
-
-          <div class="campo-dupla" data-se-vem>
-            <div class="campo contador">
-              <span class="contador__rotulo" id="r-adultos">Adultos, contando você</span>
-              <div class="contador__controle" role="group" aria-labelledby="r-adultos">
-                <button type="button" data-passo="-1" data-alvo="adultos" aria-label="Menos um adulto">−</button>
-                <output name="adultos" aria-live="polite">1</output>
-                <button type="button" data-passo="1" data-alvo="adultos" aria-label="Mais um adulto">+</button>
-              </div>
-            </div>
-            <div class="campo contador" data-se-criancas>
-              <span class="contador__rotulo" id="r-criancas">Crianças</span>
-              <div class="contador__controle" role="group" aria-labelledby="r-criancas">
-                <button type="button" data-passo="-1" data-alvo="criancas" aria-label="Menos uma criança">−</button>
-                <output name="criancas" aria-live="polite">0</output>
-                <button type="button" data-passo="1" data-alvo="criancas" aria-label="Mais uma criança">+</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="campo">
-            <label for="f-convite">Quem te convidou?</label>
-            <select id="f-convite" name="convidadoDe" data-lista="opcoesConvite">
-              <option value="">A turma toda</option>
-            </select>
-          </div>
-
-          <div class="campo-dupla" data-se-vem>
-            <div class="campo" data-se-restricao>
-              <label for="f-restricao">Restrição alimentar <span class="opcional">(opcional)</span></label>
-              <input id="f-restricao" name="restricao" type="text" placeholder="Ex.: vegetariano, alergia a camarão">
-            </div>
-            <div class="campo" data-se-musica>
-              <label for="f-musica">Uma música para a pista <span class="opcional">(opcional)</span></label>
-              <input id="f-musica" name="musica" type="text" placeholder="Ex.: Evidências">
-            </div>
-          </div>
-
-          <div class="campo">
-            <label for="f-recado">Recado para a turma <span class="opcional">(opcional)</span></label>
-            <textarea id="f-recado" name="recado" rows="3" placeholder="Escreva o que quiser"></textarea>
-          </div>
-
-          <button class="botao botao--grande" type="submit">Enviar pelo WhatsApp</button>
-          <p class="formulario__nota">O WhatsApp abre com a sua resposta escrita. É só enviar.</p>
-          <p class="formulario__retorno" data-retorno role="status" hidden></p>
-        </form>
-      </div>
-    </section>
   </main>
 
   <footer class="rodape">

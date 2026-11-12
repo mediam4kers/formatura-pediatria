@@ -69,10 +69,6 @@
   function dataUTC(minutosNoDia) {
     return new Date(Date.UTC(ano, mes - 1, dia, 0, minutosNoDia - fuso * 60));
   }
-  function formatarData(iso) {
-    var p = String(iso).split("-").map(Number);
-    return p[2] + " de " + MESES[p[1] - 1] + " de " + p[0];
-  }
 
   var minInicio = paraMinutos(ev.inicio);
   var minFim = paraMinutos(ev.fim || "23:59");
@@ -83,11 +79,6 @@
   var diaSemana = DIAS[new Date(Date.UTC(ano, mes - 1, dia)).getUTCDay()];
   var dataExtenso = dia + " de " + MESES[mes - 1] + " de " + ano;
   var hora = formatarHora(minInicio);
-
-  function hojeNoFuso() {
-    var agora = new Date(Date.now() + fuso * 3600e3);
-    return Date.UTC(agora.getUTCFullYear(), agora.getUTCMonth(), agora.getUTCDate());
-  }
 
   /* ---------------- textos simples ---------------- */
 
@@ -133,14 +124,6 @@
   campo("rodapeQuando", diaSemana + ", " + dataExtenso + " · " + hora + " · " + (L.nome || ""));
   campo("rodapeTurma", "Turma de " + especialidade + " " + D.turma + " · " + D.instituicao);
 
-  if (ev.confirmarAte) {
-    var p = String(ev.confirmarAte).split("-").map(Number);
-    var prazoPassou = Date.UTC(p[0], p[1] - 1, p[2]) < hojeNoFuso();
-    campo("prazo", prazoPassou ? "O prazo já passou, mas ainda dá para avisar a turma" : "Responda até " + formatarData(ev.confirmarAte));
-  } else {
-    campo("prazo", "");
-  }
-
   // convite
   campo("conviteTitulo", C.titulo || "");
   campo("conviteAssinatura", C.assinatura || "");
@@ -176,12 +159,13 @@
         sv("textPath", { href: "#" + id, textLength: Math.floor(2 * Math.PI * raio) - 4, lengthAdjust: "spacing", texto: texto })
       ])
     ]));
-    // bastão de Asclépio, símbolo da medicina
-    svg.appendChild(sv("g", null, [
-      sv("line", { class: "selo__haste", x1: 100, y1: 67, x2: 100, y2: 140 }),
-      sv("circle", { class: "selo__cheio", cx: 100, cy: 63, r: 3.4 }),
-      sv("path", { class: "selo__cobra", d: "M96 137 C112 135, 114 124, 100 120 C86 116, 86 105, 100 101 C114 97, 113 86, 100 83 C91 81, 88 76, 92 72" }),
-      sv("ellipse", { class: "selo__cheio", cx: 91, cy: 70.2, rx: 4, ry: 2.5, transform: "rotate(-32 91 70.2)" })
+    // símbolo do hospital, redesenhado em vetor a partir do logo original (ver assets/logo-hospital.svg)
+    svg.appendChild(sv("g", { class: "selo__cheio", transform: "translate(33.85 52.41) scale(1.05)" }, [
+      sv("path", { d: "M23.030 26.500A6.500 6.500 0 0 1 36.030 26.500A27.100 27.100 0 1 0 89.970 26.500A6.500 6.500 0 0 1 102.970 26.500A40.400 40.400 0 1 1 23.030 26.500Z" }),
+      sv("path", { d: "M43 62h40v18H43z" }),
+      sv("path", { "fill-rule": "evenodd", d: "M42.800 31.800a20.200 20.200 0 1 0 40.400 0a20.200 20.200 0 1 0 -40.400 0ZM56.200 28.900a2.200 4 0 1 0 4.400 0a2.200 4 0 1 0 -4.400 0ZM65.400 28.900a2.200 4 0 1 0 4.400 0a2.200 4 0 1 0 -4.400 0ZM52.200 38Q63 44.400 73.800 38Q63 49.800 52.200 38Z" }),
+      sv("path", { d: "M27 68h16v12H27zM83 68h16v12H83z", opacity: "0.3" }),
+      sv("path", { d: "M27 79h72v1H27z" })
     ]));
   });
 
@@ -195,7 +179,6 @@
   }
   function abrirConvite() {
     if (!abertura || abertura.classList.contains("abrindo")) return;
-    try { sessionStorage.setItem("convite-aberto", "1"); } catch (e) { /* sem armazenamento, segue */ }
     abertura.classList.add("abrindo");
     // a capa começa a aparecer por trás enquanto as cortinas ainda correm
     setTimeout(entrar, movimento ? 800 : 0);
@@ -477,99 +460,6 @@
   });
   $$(".agenda__menu a").forEach(function (a) {
     a.addEventListener("click", function () { setTimeout(function () { menuAgenda.open = false; }, 50); });
-  });
-
-  /* ---------------- confirmação de presença ---------------- */
-
-  var form = $("[data-form]");
-  var cfg = D.confirmacao || {};
-  var contadores = { adultos: 1, criancas: 0 };
-  var limites = { adultos: [1, 20], criancas: [0, 20] };
-  var selectConvite = $('[data-lista="opcoesConvite"]');
-  formandos.forEach(function (f, i) { selectConvite.appendChild(el("option", { value: String(i), texto: f.nome })); });
-  if (!cfg.perguntarCriancas) esconder("[data-se-criancas]");
-  if (!cfg.perguntarRestricao) esconder("[data-se-restricao]");
-  if (!cfg.perguntarMusica) esconder("[data-se-musica]");
-
-  function atualizarContadores() {
-    Object.keys(contadores).forEach(function (nome) {
-      form.querySelector('output[name="' + nome + '"]').textContent = contadores[nome];
-      $$('[data-alvo="' + nome + '"]', form).forEach(function (b) {
-        var passo = Number(b.getAttribute("data-passo"));
-        b.disabled = passo < 0 ? contadores[nome] <= limites[nome][0] : contadores[nome] >= limites[nome][1];
-      });
-    });
-  }
-  $$("[data-passo]", form).forEach(function (b) {
-    b.addEventListener("click", function () {
-      var nome = b.getAttribute("data-alvo");
-      var lim = limites[nome];
-      contadores[nome] = Math.max(lim[0], Math.min(lim[1], contadores[nome] + Number(b.getAttribute("data-passo"))));
-      atualizarContadores();
-    });
-  });
-  atualizarContadores();
-
-  var blocosVem = $$("[data-se-vem]");
-  $$('input[name="vem"]', form).forEach(function (r) {
-    r.addEventListener("change", function () {
-      var vem = form.elements.vem.value === "sim";
-      blocosVem.forEach(function (b) { b.hidden = !vem; });
-    });
-  });
-
-  var inputNome = form.elements.nome;
-  var erroNome = $("#f-nome-erro");
-  function mostrarErro(sim) {
-    erroNome.hidden = !sim;
-    inputNome.closest(".campo").classList.toggle("campo--erro", sim);
-    if (sim) inputNome.setAttribute("aria-invalid", "true");
-    else inputNome.removeAttribute("aria-invalid");
-  }
-  inputNome.addEventListener("input", function () { if (inputNome.value.trim().length >= 2) mostrarErro(false); });
-
-  var retorno = $("[data-retorno]");
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    var nome = inputNome.value.trim().replace(/\s+/g, " ");
-    if (nome.length < 2) {
-      mostrarErro(true);
-      inputNome.focus();
-      return;
-    }
-    mostrarErro(false);
-
-    var vem = form.elements.vem.value === "sim";
-    var escolhido = selectConvite.value === "" ? null : formandos[Number(selectConvite.value)];
-    var restricao = form.elements.restricao.value.trim();
-    var musica = form.elements.musica.value.trim();
-    var recado = form.elements.recado.value.trim();
-    var linhas = [
-      "Olá! Segue a minha resposta ao convite da formatura da " + especialidade + " (turma " + D.turma + ").",
-      "",
-      "Nome: " + nome,
-      "Presença: " + (vem ? "confirmada" : "não vou conseguir ir")
-    ];
-    if (vem) {
-      linhas.push("Adultos: " + contadores.adultos);
-      if (cfg.perguntarCriancas) linhas.push("Crianças: " + contadores.criancas);
-    }
-    linhas.push("Convidado(a) de: " + (escolhido ? escolhido.nome : "turma toda"));
-    if (vem && cfg.perguntarRestricao && restricao) linhas.push("Restrição alimentar: " + restricao);
-    if (vem && cfg.perguntarMusica && musica) linhas.push("Música para a pista: " + musica);
-    if (recado) linhas.push("Recado: " + recado);
-
-    var numero = String((escolhido && escolhido.whatsapp) || cfg.whatsapp || "").replace(/\D/g, "");
-    var url = "https://wa.me/" + numero + "?text=" + encodeURIComponent(linhas.join("\n"));
-    var janela = window.open(url, "_blank");
-    if (janela) janela.opener = null;
-
-    retorno.textContent = "";
-    retorno.appendChild(document.createTextNode("Abrimos o WhatsApp com a sua resposta. Se ele não abriu, "));
-    retorno.appendChild(el("a", { href: url, target: "_blank", rel: "noopener", texto: "toque aqui" }));
-    retorno.appendChild(document.createTextNode("."));
-    retorno.hidden = false;
-    if (!janela) window.location.href = url;
   });
 
   /* ---------------- seções sem conteúdo ---------------- */
